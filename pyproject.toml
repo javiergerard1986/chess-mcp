@@ -1,0 +1,22 @@
+[project]
+name = "mcp-build-chess-server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "mcp[cli]>=1.27.0",
+    "requests>=2.33.1",
+]
+ [project.scripts]
+ chess = "chess.server:main"
+
+ [build-system]
+ requires=["setuptools"]
+ build-backend="setuptools.build_meta"
+
+ [tool.setuptools]
+ package-dir={"" = "src"}
+
+ [tool.setuptools.packages.find]
+ where=["src"]
