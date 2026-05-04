@@ -10,15 +10,18 @@ The API client now sends an explicit `User-Agent` and `Accept: application/json`
 
 ## Optional Claude Desktop configuration
 
-If Chess.com still returns 403, set a more specific user agent in your Claude Desktop MCP server config and restart Claude Desktop completely:
+To run this server from the GitHub repository with Claude Desktop, use `uvx --from` with a `git+https://` URL:
 
 ```json
 {
   "mcpServers": {
     "chess": {
-      "command": "uv",
-      "args": ["run", "chess"],
-      "cwd": "d:\\Repositories\\MCP\\code\\quickstart\\MCP-BUILD-CHESS-SERVER",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/javiergerard1986/chess-mcp.git",
+        "chess"
+      ],
       "env": {
         "CHESS_API_USER_AGENT": "your-name chess-mcp contact@example.com"
       }
@@ -27,7 +30,40 @@ If Chess.com still returns 403, set a more specific user agent in your Claude De
 }
 ```
 
-Replace `your-name chess-mcp contact@example.com` with an identifier/contact appropriate for you.
+Important: Git repository dependencies must use the `git+` prefix. This is valid:
+
+```text
+git+https://github.com/javiergerard1986/chess-mcp.git
+```
+
+This is not valid for `uvx --from`:
+
+```text
+https://github.com/javiergerard1986/chess-mcp
+```
+
+If you prefer running from your local checkout instead, use:
+
+```json
+{
+  "mcpServers": {
+    "chess": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "d:\\Repositories\\MCP\\code\\quickstart\\MCP-BUILD-CHESS-SERVER",
+        "run",
+        "chess"
+      ],
+      "env": {
+        "CHESS_API_USER_AGENT": "your-name chess-mcp contact@example.com"
+      }
+    }
+  }
+}
+```
+
+In either config, replace `your-name chess-mcp contact@example.com` with an identifier/contact appropriate for you. Restart Claude Desktop completely after changing the config.
 
 ## Local verification
 
